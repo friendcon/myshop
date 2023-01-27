@@ -45,9 +45,5 @@ jobs:
 
       - name: Code Deploy
         run:
-          aws deploy create-deployment \
-          --application-name myshop \
-          --deployment-group-name myshop-deploy \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --s3-location bucket=sayho-myshop-bucket,bundleType=zip,key=$GITHUB_SHA.zip
+          aws deploy create-deployment --application-name myshop --deployment-group-name myshop-deploy --deployment-config-name CodeDeployDefault.AllAtOnce --s3-location bucket=sayho-myshop-bucket,bundleType=zip,key=$GITHUB_SHA.zip
 
