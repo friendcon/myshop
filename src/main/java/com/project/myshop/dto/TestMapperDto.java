@@ -1,5 +1,8 @@
 package com.project.myshop.dto;
 
+import lombok.Getter;
+
+@Getter
 public class TestMapperDto {
     int id;
     String email;
