@@ -1,16 +1,40 @@
-
----
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:myshop
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
   config:
     activate:
-      on-profile: prod1
-server:
-  port: 8081
+      on-profile: test
 
 ---
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 spring:
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/myshop
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
   config:
     activate:
-      on-profile: prod2
-server:
-  port: 8082
+      on-profile: prod
+
