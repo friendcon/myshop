@@ -28,4 +28,26 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
         shell: bash
-  
+
+      - name: Make zip file
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+        shell: bash
+
+      - name: Config AWS credential
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          aws-region: $AWS_REGION
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://sayho-myshop-bucket/$GITHUB_SHA.zip
+
+      - name: Code Deploy
+        run:
+          aws deploy create-deployment \
+          --application-name myshop \
+          --deployment-group-name myshop-deploy \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --s3-location bucket=sayho-myshop-bucket,bundleType=zip,key=$GITHUB_SHA.zip
+
