@@ -1,0 +1,31 @@
+on:
+  push:
+    branches:
+      - master
+      
+name: Deploy Spring Boot to EC2
+env:
+ PROJECT_NAME: myshop
+ 
+jobs:
+  deploy:
+    name: DEPLOY
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        shell: bash
+
+      - name: Build with Gradle
+        run: ./gradlew build
+        shell: bash
+  
