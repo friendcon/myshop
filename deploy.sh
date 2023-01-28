@@ -24,7 +24,7 @@ echo ">nohup.out 권한 설정"
 sudo chmod 755 nohup.out
 
 echo "> $JAR_PATH 배포"
-sudo nohup java -jar $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+sudo nohup java -jar $JAR_PATH > $REPOSITORY/nohup.out 2>&1 &
 
 
 
