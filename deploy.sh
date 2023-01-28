@@ -2,7 +2,8 @@
 
 REPOSITORY=/home/ec2-user/myshop/deploy
 APP_NAME=myshop
-cd $REPOSITORY
+
+cp $REPOSITORY/build/libs/*.jar $REPOSITORY/
 
 JAR_NAME=$(ls $REPOSITORY | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/$JAR_NAME
