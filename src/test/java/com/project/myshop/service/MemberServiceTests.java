@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 @SpringBootTest
-@ActiveProfiles("prod")
+@ActiveProfiles("test")
 public class MemberServiceTests {
 
     @Autowired private MemberRepository memberRepository;
@@ -32,6 +32,7 @@ public class MemberServiceTests {
                 .profileImgTumUrl("hello")
                 .build();
 
+        memberRepository.save(member);
         List<TestMapperDto> list = testMapper.getMemberList();
         TestMapperDto member2 = list.get(0);
         Assertions.assertThat(member.getUsername()).isEqualTo(member2.getUsername());
