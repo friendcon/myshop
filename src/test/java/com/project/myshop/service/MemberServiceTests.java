@@ -1,4 +1,4 @@
-package com.project.myshop;
+package com.project.myshop.service;
 
 import com.project.myshop.domain.Member;
 import com.project.myshop.dto.TestMapperDto;
@@ -9,10 +9,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 @SpringBootTest
+@ActiveProfiles("prod")
 public class MemberServiceTests {
 
     @Autowired private MemberRepository memberRepository;
@@ -30,8 +32,6 @@ public class MemberServiceTests {
                 .profileImgTumUrl("hello")
                 .build();
 
-        Member response = memberRepository.save(member);
-        System.out.println(response.getEmail());
         List<TestMapperDto> list = testMapper.getMemberList();
         TestMapperDto member2 = list.get(0);
         Assertions.assertThat(member.getUsername()).isEqualTo(member2.getUsername());
