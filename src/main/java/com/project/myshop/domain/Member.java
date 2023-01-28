@@ -10,7 +10,7 @@ import lombok.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,4 +31,5 @@ public class Member {
         this.profileImgTumUrl = profileImgTumUrl;
         this.isEnabled = isEnabled;
     }
+
 }
