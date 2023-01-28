@@ -3,10 +3,10 @@
 REPOSITORY=/home/ec2-user/myshop/deploy
 APP_NAME=myshop
 
-cp $REPOSITORY/build/libs/*.jar $REPOSITORY/
+cp $REPOSITORY
 
-JAR_NAME=$(ls $REPOSITORY | grep '.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/$JAR_NAME
+JAR_NAME=$(ls $REPOSITORY/build/libs | grep '.jar' | tail -n 1)
+JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
 CURRENT_PID=$(sudo lsof -t -i:8080)
 echo "> 현재 구동중인 애플리케이션 PIT : $CURRENT_PID"
