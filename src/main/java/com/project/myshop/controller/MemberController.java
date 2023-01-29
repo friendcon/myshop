@@ -3,6 +3,7 @@ package com.project.myshop.controller;
 import com.project.myshop.controller.dto.MemberCreateRequest;
 import com.project.myshop.controller.dto.ResultResponse;
 import com.project.myshop.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<ResultResponse<String>> signUp(@RequestBody MemberCreateRequest memberCreateRequest) {
+    public ResponseEntity<ResultResponse<String>> signUp(@RequestBody @Valid MemberCreateRequest memberCreateRequest) {
         memberService.signUp(memberCreateRequest);
         System.out.println(memberCreateRequest.toString());
         ResultResponse response = ResultResponse.builder()
