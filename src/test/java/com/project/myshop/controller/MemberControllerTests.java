@@ -26,8 +26,8 @@ public class MemberControllerTests {
     @DisplayName("회원가입 테스트")
     public void signUpTest() throws Exception {
         MemberCreateRequest memberCreateRequest = MemberCreateRequest.builder()
-                        .username("hello")
-                                .password("hello")
+                        .username("helloworld20230129")
+                                .password("helloworld2023~")
                                         .email("hello@gmail.com")
                                                 .profileImgUrl("imgURl")
                                                         .profileImgTumUrl("imgUrl2").build();
