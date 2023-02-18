@@ -19,6 +19,10 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    public Boolean isDuplicate(String username) {
+        return memberRepository.existsByUsername(username);
+    }
+
     public static Member toMemberFromRequest(MemberCreateRequest memberCreateRequest){
         return Member.builder()
                 .username(memberCreateRequest.getUsername())

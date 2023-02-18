@@ -4,6 +4,7 @@ import com.project.myshop.domain.Member;
 import com.project.myshop.dto.TestMapperDto;
 import com.project.myshop.mapper.TestMapper;
 import com.project.myshop.repository.MemberRepository;
+import com.project.myshop.repository.MemberRepositoryTests;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
