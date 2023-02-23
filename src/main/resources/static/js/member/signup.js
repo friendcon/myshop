@@ -48,7 +48,7 @@ $(document).ready(function () {
                 location.replace("/");
             },
             error: function (request, status, error) {
-                const errorCode = request.status;ㄹ
+                const errorCode = request.status;
                 if(errorCode == 400) {
                     alert("입력 값을 확인해주세요")
                 }
