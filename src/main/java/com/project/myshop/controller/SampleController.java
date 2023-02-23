@@ -2,13 +2,12 @@ package com.project.myshop.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class SampleController {
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello() {
-        return "hello";
+        System.out.println("메인페이지에 들어왔음");
+        return "index";
     }
 }

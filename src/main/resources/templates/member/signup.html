@@ -11,6 +11,11 @@
     .sign-up-bg-color {
         background-color: #006400;
     }
+
+    .error-box {
+        color: red;
+        font-size: 12px;
+    }
 </style>
 
 <body class="sign-up-bg-color">
@@ -26,30 +31,46 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
                         </div>
-                        <form class="user">
+                        <form id="signupForm" class="user">
                             <div class="form-group row">
                                 <div class="col-sm-9 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="inputId"
+                                    <input type="text" class="form-control form-control-user" id="inputId" name="username"
                                            placeholder="아이디를 입력하세요">
                                 </div>
                                 <div class="col-sm-3">
-                                    <a class="btn btn-primary btn-user btn-block" id="checkDupli">
+                                    <a class="btn btn-primary btn-user btn-block " id="checkDupli">
                                         중복체크
                                     </a>
                                 </div>
                             </div>
 
-                            <input type="hidden" th:value="false" value="false" id="isDuplicate">
+                            <input type="hidden" th:value="false" value="false" id="isDuplicate" name="isIdDuplicate">
+                            <input type="hidden" th:value="false" value="false" id="idIsCorrect" name="isIdCorrect">
+
+                            <div class="form-group row ml-3 error-box" style="display: none" id = "idErrorBox">
+                            </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12 mb-3 mb-sm-0">
                                     <input type="password" class="form-control form-control-user"
-                                           id="exampleInputPassword" placeholder="Password">
+                                           id="inputPassword" name="password" placeholder="Password">
                                 </div>
                             </div>
+
+                            <input type="hidden" th:value="false" value="false" id="passwordIsCorrect" name="passwordIsCorrect">
+
+                            <div class="form-group row ml-3 error-box" style="display: none" id = "passwordErrorBox">
+                            </div>
+
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                <input type="email" class="form-control form-control-user" id="inputEmail"
+                                       name="email"
                                        placeholder="Email Address">
+                            </div>
+
+                            <input type="hidden" th:value="false" value="false" id="emailIsCorrect" name="emailIsCorrect">
+
+                            <div class="form-group row ml-3 error-box" style="display: none" id = "emailErrorBox">
                             </div>
 
                             <div class="form-group row">
@@ -64,16 +85,14 @@
                                 </div>
                             </div>
 
-                            <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                회원가입
-                            </a>
-                            <hr>
+                            <input type="button" class="btn btn-primary btn-user btn-block" id="signupBtn" value="회원가입">
                             <a href="index.html" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Register with Google
                             </a>
                             <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                 <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
                             </a>
+                            <hr>
                         </form>
                         <hr>
                         <div class="text-center">

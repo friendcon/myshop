@@ -2,6 +2,9 @@ package com.project.myshop.util;
 
 import com.project.myshop.controller.dto.ResultResponse;
 import com.project.myshop.util.customexception.IdDuplicateException;
+import com.project.myshop.util.customexception.IdNotValidationException;
+import com.project.myshop.util.customexception.SignUpFieldNotValidationException;
+import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -26,6 +29,15 @@ public class GlobalExceptionAdvice extends Exception {
         return new ResponseEntity(resultResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UnexpectedTypeException.class)
+    public ResponseEntity<ResultResponse<Object>> unexpectedTypeException(UnexpectedTypeException e) {
+        ResultResponse<Object> resultResponse = ResultResponse.builder()
+                .resultCode("400")
+                .message(e.getLocalizedMessage())
+                .build();
+        return new ResponseEntity(resultResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(IdDuplicateException.class)
     public ResponseEntity<ResultResponse<Object>> idDuplicateException(IdDuplicateException e) {
         ResultResponse<Object> resultResponse = ResultResponse.builder()
@@ -33,6 +45,34 @@ public class GlobalExceptionAdvice extends Exception {
                 .message(e.getMessage())
                 .build();
         return new ResponseEntity<>(resultResponse, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(IdNotValidationException.class)
+    public ResponseEntity<ResultResponse<Object>> idNotValidationException(IdNotValidationException e) {
+        ResultResponse<Object> resultResponse = ResultResponse.builder()
+                .resultCode("406")
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(resultResponse, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(SignUpFieldNotValidationException.class)
+    public ResponseEntity<ResultResponse<Object>> signUpFieldNotValidationException(SignUpFieldNotValidationException e) {
+        ResultResponse<Object> resultResponse = ResultResponse.builder()
+                .resultCode("400")
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(resultResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ResultResponse<Object>> nullException(NullPointerException e) {
+        ResultResponse<Object> resultResponse = ResultResponse.builder()
+                .resultCode("400")
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(resultResponse, HttpStatus.BAD_REQUEST);
     }
 
     public String getErrorMessage(List<FieldError> fieldErrors) {

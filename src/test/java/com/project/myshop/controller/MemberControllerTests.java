@@ -31,15 +31,17 @@ public class MemberControllerTests {
     @Test
     @DisplayName("회원가입 테스트")
     public void signUpTest() throws Exception {
-        MemberCreateRequest memberCreateRequest = MemberCreateRequest.builder()
-                        .username("helloworld20230129")
-                                .password("helloworld2023~")
-                                        .email("hello@gmail.com")
-                                                .profileImgUrl("imgURl")
-                                                        .profileImgTumUrl("imgUrl2").build();
+        MemberCreateRequest memberCreateRequest2 = MemberCreateRequest.builder()
+                .username("hello234321")
+                .password("hello234!")
+                .email("hello234@gmail.com")
+                .passwordIsCorrect(true)
+                .isIdCorrect(true)
+                .isIdDuplicate(false)
+                .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(memberCreateRequest);
+        String json = objectMapper.writeValueAsString(memberCreateRequest2);
 
         System.out.println(json);
         mockMvc.perform(MockMvcRequestBuilders.post("/member")
@@ -58,6 +60,9 @@ public class MemberControllerTests {
                 .email("hello@gmail.com")
                 .profileImgUrl("url")
                 .profileImgTumUrl("hellll")
+                .isIdDuplicate(false)
+                .isIdCorrect(true)
+                .passwordIsCorrect(true)
                 .build();
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -100,6 +105,29 @@ public class MemberControllerTests {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/member/checkId/hello2"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("회원가입 중복 체크 x")
+    public void checkValidation() throws Exception {
+        MemberCreateRequest memberCreateRequest = MemberCreateRequest
+                .builder()
+                .username("hello234")
+                .password("hello234!")
+                .email("hello234@gmail.com")
+                .isIdDuplicate(true)
+                .isIdCorrect(true)
+                .passwordIsCorrect(true)
+                .build();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(memberCreateRequest);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/member")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andDo(MockMvcResultHandlers.print());
     }
 }
