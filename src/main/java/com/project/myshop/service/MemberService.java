@@ -1,6 +1,7 @@
 package com.project.myshop.service;
 
 import com.project.myshop.controller.dto.MemberCreateRequest;
+import com.project.myshop.controller.dto.MemberLoginRequest;
 import com.project.myshop.domain.Member;
 import com.project.myshop.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class MemberService {
         return memberRepository.existsByUsername(username);
     }
 
+    public Boolean loginAuth(MemberLoginRequest memberLoginRequest) {
+        Boolean response = memberRepository.existsByUsernameAndPassword(memberLoginRequest.getUsername(), memberLoginRequest.getPassword());
+        return response;
+    }
     public static Member toMemberFromRequest(MemberCreateRequest memberCreateRequest){
         return Member.builder()
                 .username(memberCreateRequest.getUsername())

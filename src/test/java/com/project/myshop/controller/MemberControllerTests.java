@@ -3,6 +3,7 @@ package com.project.myshop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.myshop.controller.dto.MemberCreateRequest;
+import com.project.myshop.controller.dto.MemberLoginRequest;
 import com.project.myshop.domain.Member;
 import com.project.myshop.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -28,28 +29,34 @@ public class MemberControllerTests {
     @Autowired
     private MemberRepository memberRepository;
 
-    /*@Test
+    @Test
     @DisplayName("회원가입 테스트")
     public void signUpTest() throws Exception {
-        MemberCreateRequest memberCreateRequest2 = MemberCreateRequest.builder()
-                .username("helloworld1234")
+        MemberCreateRequest memberCreateRequest = MemberCreateRequest.builder()
+                .username("hello55")
                 .password("helloworld1234!")
                 .email("helloworld1234@gmail.com")
+                .profileImgUrl("imgUrl")
+                .profileImgTumUrl("tumImgUrl")
                 .passwordIsCorrect(true)
                 .isIdCorrect(true)
                 .isIdDuplicate(false)
                 .build();
 
+
+
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(memberCreateRequest2);
+        String json = objectMapper.writeValueAsString(memberCreateRequest);
 
         System.out.println(json);
+
+
         mockMvc.perform(MockMvcRequestBuilders.post("/member")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
-    }*/
+    }
 
     @Test
     @DisplayName("회원가입 실패")
@@ -124,7 +131,36 @@ public class MemberControllerTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writeValueAsString(memberCreateRequest);
 
+        System.out.println(json);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/member")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("로그인 실패")
+    public void failLogin() throws Exception {
+        Member member = Member.builder()
+                .username("hello")
+                .password("hello")
+                .email("hello")
+                .isEnabled(true)
+                .build();
+
+        memberRepository.save(member);
+        MemberLoginRequest memberLoginRequest = MemberLoginRequest.builder()
+                .username(" ")
+                .password("adsasd")
+                .build();
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(memberLoginRequest);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/member/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())

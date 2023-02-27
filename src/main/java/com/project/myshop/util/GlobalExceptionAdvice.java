@@ -3,6 +3,7 @@ package com.project.myshop.util;
 import com.project.myshop.controller.dto.ResultResponse;
 import com.project.myshop.util.customexception.IdDuplicateException;
 import com.project.myshop.util.customexception.IdNotValidationException;
+import com.project.myshop.util.customexception.LoginFailException;
 import com.project.myshop.util.customexception.SignUpFieldNotValidationException;
 import jakarta.validation.UnexpectedTypeException;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,15 @@ public class GlobalExceptionAdvice extends Exception {
         return new ResponseEntity<>(resultResponse, HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(LoginFailException.class)
+    public ResponseEntity<ResultResponse<Object>> loginFailException(LoginFailException e) {
+        ResultResponse<Object> resultResponse = ResultResponse.builder()
+                .resultCode("403")
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity<>(resultResponse, HttpStatus.FORBIDDEN);
+    }
     @ExceptionHandler(IdNotValidationException.class)
     public ResponseEntity<ResultResponse<Object>> idNotValidationException(IdNotValidationException e) {
         ResultResponse<Object> resultResponse = ResultResponse.builder()

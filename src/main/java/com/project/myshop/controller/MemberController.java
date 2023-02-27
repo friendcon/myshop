@@ -22,13 +22,8 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping
-    public String getSignUp() {
-        return "/member/signup";
-    }
-
-    /*@PostMapping
-    public ResponseEntity<ResultResponse<String>> signUp(@RequestBody @Valid MemberCreateRequest memberCreateRequest) {
+    @PostMapping
+    public ResponseEntity<ResultResponse<String>> doSignUp(@RequestBody @Valid MemberCreateRequest memberCreateRequest) {
         if(memberCreateRequest.getIsIdCorrect() == null || memberCreateRequest.getPasswordIsCorrect() == null || memberCreateRequest.getIsIdDuplicate() == null) {
             throw new SignUpFieldNotValidationException("유효성 체크를 해주세요.");
         }
@@ -39,16 +34,6 @@ public class MemberController {
                 .message("회원가입이 완료되었습니다.")
                 .build();
         return new ResponseEntity(response, HttpStatus.OK);
-    }*/
-
-    @PostMapping
-    public String doSignUp(@Valid MemberCreateRequest memberCreateRequest) {
-        if(memberCreateRequest.getIsIdCorrect() == null || memberCreateRequest.getPasswordIsCorrect() == null || memberCreateRequest.getIsIdDuplicate() == null) {
-            throw new SignUpFieldNotValidationException("유효성 체크를 해주세요.");
-        }
-
-        memberService.signUp(memberCreateRequest);
-        return "index";
     }
 
     @GetMapping("/checkId/{username}")

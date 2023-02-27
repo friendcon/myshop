@@ -41,4 +41,21 @@ public class MemberRepositoryTests {
 
         Assertions.assertThat(response).isEqualTo(true);
     }
+
+    @Test
+    @DisplayName("로그인")
+    public void testLogin(){
+        Member member = Member.builder()
+                .id(1L)
+                .username("hello0226")
+                .password("hello0226!")
+                .email("hello@dkc.com").build();
+
+        String id = "hello0226";
+        String password = "hello0226!";
+        memberRepository.save(member);
+
+        Assertions.assertThat(memberRepository.existsByUsernameAndPassword(id, password)).isEqualTo(true);
+
+    }
 }
