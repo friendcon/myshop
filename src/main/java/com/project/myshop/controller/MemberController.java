@@ -10,8 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
@@ -23,7 +25,7 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<ResultResponse<String>> doSignUp(@RequestBody @Valid MemberCreateRequest memberCreateRequest) {
+    public ResponseEntity<ResultResponse<String>> doSignUp(@Valid MemberCreateRequest memberCreateRequest) {
         if(memberCreateRequest.getIsIdCorrect() == null || memberCreateRequest.getPasswordIsCorrect() == null || memberCreateRequest.getIsIdDuplicate() == null) {
             throw new SignUpFieldNotValidationException("유효성 체크를 해주세요.");
         }

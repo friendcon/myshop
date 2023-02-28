@@ -36,11 +36,13 @@ public class MemberViewController {
         log.info("do login. . . ");
         boolean result = memberService.loginAuth(memberLoginRequest);
         if(!result) {
-            throw new LoginFailException("아이디와 패스워드를 확인해주세요.");
+            return "redirect:/member/login";
+            // throw new LoginFailException("아이디와 패스워드를 확인해주세요.");
         } else {
             httpSession.setAttribute("memberid", memberLoginRequest.getUsername());
+            return "redirect:/";
         }
-        return "redirect:/";
+
     }
 
     @GetMapping("/logout")

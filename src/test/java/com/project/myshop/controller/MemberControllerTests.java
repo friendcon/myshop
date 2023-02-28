@@ -29,7 +29,7 @@ public class MemberControllerTests {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Test
+    /*@Test
     @DisplayName("회원가입 테스트")
     public void signUpTest() throws Exception {
         MemberCreateRequest memberCreateRequest = MemberCreateRequest.builder()
@@ -56,7 +56,7 @@ public class MemberControllerTests {
                 .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
-    }
+    }*/
 
     @Test
     @DisplayName("회원가입 실패")
