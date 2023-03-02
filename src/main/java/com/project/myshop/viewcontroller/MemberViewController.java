@@ -2,17 +2,14 @@ package com.project.myshop.viewcontroller;
 
 import com.project.myshop.controller.dto.MemberLoginRequest;
 import com.project.myshop.service.MemberService;
-import com.project.myshop.util.customexception.LoginFailException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
@@ -29,6 +26,11 @@ public class MemberViewController {
     @GetMapping("/login")
     public void login() {
         log.info("login. . .");
+    }
+
+    @GetMapping("/mypage")
+    public void mypage() {
+        log.info("mypage . . .");
     }
 
     @PostMapping("/login")

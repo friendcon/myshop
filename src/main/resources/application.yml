@@ -21,11 +21,17 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
-
 server:
   port: 8080
-
-
+cloud:
+  aws:
+    s3:
+      bucket: sayho-myshop-bucket
+    credentials:
+      access-key: AKIASXBNAYK37QIQ7KQD
+      secret-key: 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
+    region:
+      static: ap-northeast-2
 ---
 
 mybatis:

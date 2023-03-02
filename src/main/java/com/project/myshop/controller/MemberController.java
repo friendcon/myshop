@@ -1,27 +1,33 @@
 package com.project.myshop.controller;
 
 import com.project.myshop.controller.dto.MemberCreateRequest;
+import com.project.myshop.controller.dto.MemberImgResponse;
 import com.project.myshop.controller.dto.ResultResponse;
 import com.project.myshop.service.MemberService;
+import com.project.myshop.util.S3UploadService;
 import com.project.myshop.util.customexception.IdDuplicateException;
 import com.project.myshop.util.customexception.IdNotValidationException;
 import com.project.myshop.util.customexception.SignUpFieldNotValidationException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
     private MemberService memberService;
 
-    public MemberController(MemberService memberService) {
+    private S3UploadService s3UploadService;
+
+    public MemberController(MemberService memberService, S3UploadService s3UploadService) {
         this.memberService = memberService;
+        this.s3UploadService = s3UploadService;
     }
 
     @PostMapping
@@ -61,5 +67,16 @@ public class MemberController {
                 .build();
 
         return new ResponseEntity<>(resultResponse, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/uploadImg",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<MemberImgResponse> uploadMemberImg(@RequestParam("imgFile") MultipartFile multipartFile) throws IOException {
+        MemberImgResponse imgResponse = s3UploadService.upload(multipartFile, "member");
+        /*ResultResponse<Object> response = ResultResponse.builder()
+                .resultCode("200")
+                .message("성공적으로 이미지를 업로드하였습니다.")
+                .data(imgResponse)
+                .build();*/
+        return new ResponseEntity(imgResponse, HttpStatus.OK);
     }
 }
